@@ -30,17 +30,26 @@ class ProductBrandController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $brand = ProductBrand::find($id);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $brand,
+            'message' => 'Data obtenida con exito',
+        ], Response::HTTP_OK);
+    }
+
     // Registrar y actualizar marca
-    public function store(BrandRequest $request)
+    public function store(BrandRequest $request, $id = null)
     {
         try {
 
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255'
             ]);
-
-            $id = $request->input('id');
-
+            
             $brand = ProductBrand::firstOrNew(['id' => $id]);
 
             $brand->name = $validatedData['name'];
@@ -61,6 +70,7 @@ class ProductBrandController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
 
     // Eliminar marca
     public function deleteBrand($id)

@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(ProductBrandController::class)->prefix('brands')->group(function() {
     Route::get('list', 'index');
+    Route::get('show/{id}', 'show');
     Route::post('create', 'store');
     Route::put('edit/{id}', 'store');
     Route::delete('delete/{id}', 'deleteBrand');
